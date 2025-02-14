@@ -7,7 +7,8 @@ export default function IdeaTile({
   titleValue,
   setTitleValue,
   id,
-  updateIdea
+  updateIdea,
+  deleteIdea,
 }) {
   const [editingTitleValue, setEditingTitleValue] = useState(titleValue);
   const [editingContentValue, setEditingContentValue] = useState(contentValue);
@@ -37,6 +38,10 @@ export default function IdeaTile({
     updateIdea(id);
   }
 
+  function handleDelete() {
+    deleteIdea(id);
+  }
+
   return (
     <div className="idea" id={id}>
       <p>
@@ -64,7 +69,9 @@ export default function IdeaTile({
         onKeyDown={onKeyDown}
       ></textarea>
       <div className="idea-buttons">
-        <button className="delete-button">Delete</button>
+        <button className="delete-button" onClick={handleDelete}>
+          Delete
+        </button>
       </div>
     </div>
   );

@@ -78,6 +78,11 @@ button:hover {
   color: aquamarine;
 }
 
+.wrapper {
+  max-width: 1800px;
+  margin-inline: auto;
+}
+
 .idea-grid {
   width: 100%;
   display: grid;

@@ -15,7 +15,7 @@ const App = () => {
       title: titleValue,
       content: contentValue,
     };
-    setIdeas([...ideas, newIdea]);
+    setIdeas([newIdea, ...ideas]);
     console.log(newIdea);
   }
 
@@ -31,26 +31,41 @@ const App = () => {
       };
 
       console.log(ideasCopy);
-      return [...ideasCopy];
+      return ideasCopy;
+    });
+  }
+
+  function deleteIdea(targetId) {
+    setIdeas((prevIdeas) => {
+      const ideasCopy = [...prevIdeas];
+      const index = prevIdeas.findIndex((idea) => idea.id === targetId);
+
+      ideasCopy.splice(index, 1);
+
+      console.log(ideasCopy);
+      return ideasCopy;
     });
   }
 
   return (
     <div>
       <Header createIdea={createIdea} />
-      <div className="idea-grid">
-        {ideas.length > 0 &&
-          ideas.map((idea) => (
-            <IdeaTile
-              key={idea.id}
-              id={idea.id}
-              contentValue={contentValue}
-              setContentValue={setContentValue}
-              titleValue={titleValue}
-              setTitleValue={setTitleValue}
-              updateIdea={updateIdea}
-            />
-          ))}
+      <div className="wrapper">
+        <div className="idea-grid">
+          {ideas.length > 0 &&
+            ideas.map((idea) => (
+              <IdeaTile
+                key={idea.id}
+                id={idea.id}
+                contentValue={contentValue}
+                setContentValue={setContentValue}
+                titleValue={titleValue}
+                setTitleValue={setTitleValue}
+                updateIdea={updateIdea}
+                deleteIdea={deleteIdea}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );
