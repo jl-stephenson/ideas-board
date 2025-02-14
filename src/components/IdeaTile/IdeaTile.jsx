@@ -2,16 +2,13 @@ import { timeCreated } from "../../utils/timeCreated";
 import { useState } from "react";
 
 export default function IdeaTile({
-  contentValue,
-  setContentValue,
-  titleValue,
-  setTitleValue,
+  idea,
   id,
   updateIdea,
   deleteIdea,
 }) {
-  const [editingTitleValue, setEditingTitleValue] = useState(titleValue);
-  const [editingContentValue, setEditingContentValue] = useState(contentValue);
+  const [editingTitleValue, setEditingTitleValue] = useState(idea.title);
+  const [editingContentValue, setEditingContentValue] = useState(idea.content);
 
   const { timestamp, date, time } = timeCreated();
 
@@ -29,13 +26,8 @@ export default function IdeaTile({
     }
   }
 
-  function onBlur(e) {
-    if (e.target.tagName === "INPUT") {
-      setTitleValue(e.target.value);
-    } else {
-      setContentValue(e.target.value);
-    }
-    updateIdea(id);
+  function onBlur() {
+    updateIdea(editingTitleValue, editingContentValue, id);
   }
 
   function handleDelete() {
@@ -43,7 +35,7 @@ export default function IdeaTile({
   }
 
   return (
-    <div className="idea" id={id}>
+    <div className="idea-tile" id={id}>
       <p>
         {date} {time}
       </p>

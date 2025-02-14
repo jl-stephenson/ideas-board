@@ -5,21 +5,25 @@ import IdeaTile from "./components/IdeaTile/IdeaTile";
 import { useState } from "react";
 
 const App = () => {
-  const [contentValue, setContentValue] = useState("");
-  const [titleValue, setTitleValue] = useState("");
   const [ideas, setIdeas] = useState([]);
 
   function createIdea() {
+    if (typeof ideas[0] !== "undefined") {
+      if (ideas[0].title === "" && ideas[0].content === "") {
+        return;
+      }
+    }
+
     const newIdea = {
       id: Date.now(),
-      title: titleValue,
-      content: contentValue,
+      title: "",
+      content: "",
     };
     setIdeas([newIdea, ...ideas]);
     console.log(newIdea);
   }
 
-  function updateIdea(targetId) {
+  function updateIdea(titleValue, contentValue, targetId) {
     setIdeas((prevIdeas) => {
       const ideasCopy = [...prevIdeas];
       const index = prevIdeas.findIndex((idea) => idea.id === targetId);
@@ -56,11 +60,8 @@ const App = () => {
             ideas.map((idea) => (
               <IdeaTile
                 key={idea.id}
+                idea={idea}
                 id={idea.id}
-                contentValue={contentValue}
-                setContentValue={setContentValue}
-                titleValue={titleValue}
-                setTitleValue={setTitleValue}
                 updateIdea={updateIdea}
                 deleteIdea={deleteIdea}
               />
