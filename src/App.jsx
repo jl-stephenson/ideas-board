@@ -52,9 +52,9 @@ const App = () => {
   }
 
   return (
-    <div>
+    <>
       <Header createIdea={createIdea} />
-      <div className="wrapper">
+      <main className="wrapper">
         <div className="idea-grid">
           {ideas.length > 0 &&
             ideas.map((idea) => (
@@ -67,8 +67,8 @@ const App = () => {
               />
             ))}
         </div>
-      </div>
-    </div>
+      </main>
+    </>
   );
 };
 
