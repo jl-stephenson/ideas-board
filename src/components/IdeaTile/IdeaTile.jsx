@@ -6,6 +6,8 @@ export default function IdeaTile({
   setContentValue,
   titleValue,
   setTitleValue,
+  id,
+  updateIdea
 }) {
   const [editingTitleValue, setEditingTitleValue] = useState(titleValue);
   const [editingContentValue, setEditingContentValue] = useState(contentValue);
@@ -32,17 +34,11 @@ export default function IdeaTile({
     } else {
       setContentValue(e.target.value);
     }
-  }
-
-  function onInput(e) {
-    if (e.target.scrollHeight > 33) {
-      e.target.style.height = "5px";
-      e.target.style.height = e.target.scrollHeight - 16 + "px";
-    }
+    updateIdea(id);
   }
 
   return (
-    <div className="idea" id={timestamp}>
+    <div className="idea" id={id}>
       <p>
         {date} {time}
       </p>
@@ -58,7 +54,6 @@ export default function IdeaTile({
       />
       <textarea
         rows="5"
-        cols="20"
         aria-label="Idea content"
         className="content-input"
         value={editingContentValue}
@@ -67,7 +62,6 @@ export default function IdeaTile({
         onBlur={onBlur}
         onChange={onChange}
         onKeyDown={onKeyDown}
-        onInput={onInput}
       ></textarea>
       <div className="idea-buttons">
         <button className="delete-button">Delete</button>

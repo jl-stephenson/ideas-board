@@ -90,6 +90,7 @@ button:hover {
 @media (min-width: 460px) {
   .idea-grid {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    place-items: start legacy;
   }
 }
 
@@ -122,6 +123,7 @@ button:hover {
   resize: none;
   overflow: hidden;
   max-width: 100%;
+  min-height: 1.5rem;
 }
 
 .content-input:focus {

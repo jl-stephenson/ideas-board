@@ -5,51 +5,52 @@ import IdeaTile from "./components/IdeaTile/IdeaTile";
 import { useState } from "react";
 
 const App = () => {
-  const [contentValue, setContentValue] = useState(
-    "This sentence is crafted to be exactly one hundred and forty characters long, balancing brevity with clear and precise wording. It is ideal!",
-  );
+  const [contentValue, setContentValue] = useState("");
   const [titleValue, setTitleValue] = useState("");
+  const [ideas, setIdeas] = useState([]);
+
+  function createIdea() {
+    const newIdea = {
+      id: Date.now(),
+      title: titleValue,
+      content: contentValue,
+    };
+    setIdeas([...ideas, newIdea]);
+    console.log(newIdea);
+  }
+
+  function updateIdea(targetId) {
+    setIdeas((prevIdeas) => {
+      const ideasCopy = [...prevIdeas];
+      const index = prevIdeas.findIndex((idea) => idea.id === targetId);
+
+      ideasCopy[index] = {
+        ...ideasCopy[index],
+        title: titleValue,
+        content: contentValue,
+      };
+
+      console.log(ideasCopy);
+      return [...ideasCopy];
+    });
+  }
+
   return (
     <div>
-      <Header />
+      <Header createIdea={createIdea} />
       <div className="idea-grid">
-        <IdeaTile
-          contentValue={contentValue}
-          setContentValue={setContentValue}
-          titleValue={titleValue}
-          setTitleValue={setTitleValue}
-        />
-          <IdeaTile
-          contentValue={contentValue}
-          setContentValue={setContentValue}
-          titleValue={titleValue}
-          setTitleValue={setTitleValue}
-        />
-          <IdeaTile
-          contentValue={contentValue}
-          setContentValue={setContentValue}
-          titleValue={titleValue}
-          setTitleValue={setTitleValue}
-        />
-          <IdeaTile
-          contentValue={contentValue}
-          setContentValue={setContentValue}
-          titleValue={titleValue}
-          setTitleValue={setTitleValue}
-        />
-          <IdeaTile
-          contentValue={contentValue}
-          setContentValue={setContentValue}
-          titleValue={titleValue}
-          setTitleValue={setTitleValue}
-        />
-          <IdeaTile
-          contentValue={contentValue}
-          setContentValue={setContentValue}
-          titleValue={titleValue}
-          setTitleValue={setTitleValue}
-        />
-
+        {ideas.length > 0 &&
+          ideas.map((idea) => (
+            <IdeaTile
+              key={idea.id}
+              id={idea.id}
+              contentValue={contentValue}
+              setContentValue={setContentValue}
+              titleValue={titleValue}
+              setTitleValue={setTitleValue}
+              updateIdea={updateIdea}
+            />
+          ))}
       </div>
     </div>
   );
