@@ -11,8 +11,6 @@ export default function IdeaTile({
   const [editingTitleValue, setEditingTitleValue] = useState(idea.title);
   const [editingContentValue, setEditingContentValue] = useState(idea.content);
 
-  const { timestamp, date, time } = timeCreated();
-
   function onChange(e) {
     if (e.target.tagName === "INPUT") {
       setEditingTitleValue(e.target.value);
@@ -36,10 +34,7 @@ export default function IdeaTile({
   }
 
   return (
-    <div className="idea-tile" id={id}>
-      <p>
-        {date} {time}
-      </p>
+    <article className="idea-tile" id={id}>
       <input
         type="text"
         aria-label="Idea title"
@@ -62,11 +57,14 @@ export default function IdeaTile({
         onChange={onChange}
         onKeyDown={onKeyDown}
       ></textarea>
-      <div className="idea-buttons">
+      <footer className="idea-footer">
+        <p className="timestamp">
+          {idea.updatedAt === "" ? idea.createdAt : idea.updatedAt}
+        </p>
         <button className="delete-button" onClick={handleDelete}>
           Delete
         </button>
-      </div>
-    </div>
+      </footer>
+    </article>
   );
 }

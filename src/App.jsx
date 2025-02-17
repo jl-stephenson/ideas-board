@@ -2,6 +2,7 @@ import "./App.css";
 import { createRoot } from "react-dom/client";
 import Header from "./components/Header/Header";
 import IdeaTile from "./components/IdeaTile/IdeaTile";
+import { timeCreated } from "./utils/timeCreated";
 import { useEffect, useRef, useState } from "react";
 
 const App = () => {
@@ -22,10 +23,14 @@ const App = () => {
       }
     }
 
+    const { timestamp, date, time } = timeCreated();
+
     const newIdea = {
-      id: Date.now(),
+      id: timestamp,
       title: "",
       content: "",
+      createdAt: `Created at: ${date} ${time}`,
+      updatedAt: "",
     };
     setIdeas([newIdea, ...ideas]);
     console.log(newIdea);
@@ -37,10 +42,13 @@ const App = () => {
       const ideasCopy = [...prevIdeas];
       const index = prevIdeas.findIndex((idea) => idea.id === targetId);
 
+      const { date, time } = timeCreated();
+
       ideasCopy[index] = {
         ...ideasCopy[index],
         title: titleValue,
         content: contentValue,
+        updatedAt: `Updated at ${date} ${time}`,
       };
 
       console.log(ideasCopy);

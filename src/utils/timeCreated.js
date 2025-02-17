@@ -1,7 +1,7 @@
 export function timeCreated() {
   const timestamp = new Date();
   return {
-    timeStamp: timestamp,
+    timestamp: timestamp,
     date: timestamp.toLocaleDateString(),
     time: timestamp.toLocaleTimeString([], {
       hour: "2-digit",
