@@ -2,10 +2,17 @@ import "./App.css";
 import { createRoot } from "react-dom/client";
 import Header from "./components/Header/Header";
 import IdeaTile from "./components/IdeaTile/IdeaTile";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const App = () => {
   const [ideas, setIdeas] = useState([]);
+  const titlesRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof ideas[0] !== "undefined") {
+      focusNewTitle(ideas[0]?.id);
+    }
+  }, [ideas]);
 
   function createIdea() {
     if (typeof ideas[0] !== "undefined") {
@@ -51,6 +58,19 @@ const App = () => {
     });
   }
 
+  function getMap() {
+    if (!titlesRef.current) {
+      titlesRef.current = new Map();
+    }
+    return titlesRef.current;
+  }
+
+  function focusNewTitle(id) {
+    const map = getMap();
+    const node = map.get(id);
+    node.focus();
+  }
+
   return (
     <>
       <Header createIdea={createIdea} />
@@ -64,6 +84,14 @@ const App = () => {
                 id={idea.id}
                 updateIdea={updateIdea}
                 deleteIdea={deleteIdea}
+                titleRef={(node) => {
+                  const map = getMap();
+                  if (node) {
+                    map.set(idea.id, node);
+                  } else {
+                    map.delete(idea.id);
+                  }
+                }}
               />
             ))}
         </div>

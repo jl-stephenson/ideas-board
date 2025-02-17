@@ -6,6 +6,7 @@ export default function IdeaTile({
   id,
   updateIdea,
   deleteIdea,
+  titleRef,
 }) {
   const [editingTitleValue, setEditingTitleValue] = useState(idea.title);
   const [editingContentValue, setEditingContentValue] = useState(idea.content);
@@ -48,6 +49,7 @@ export default function IdeaTile({
         onChange={onChange}
         onKeyDown={onKeyDown}
         onBlur={onBlur}
+        ref={titleRef}
       />
       <textarea
         rows="5"
