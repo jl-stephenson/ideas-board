@@ -23,7 +23,7 @@ export default function IdeaTile({
 
   function onKeyDown(e) {
     if (e.key === "Enter" || event.key === "Escape") {
-      event.target.blur();
+      e.target.blur();
     }
   }
 

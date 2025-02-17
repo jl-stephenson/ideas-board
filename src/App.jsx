@@ -6,13 +6,14 @@ import { useEffect, useRef, useState } from "react";
 
 const App = () => {
   const [ideas, setIdeas] = useState([]);
+  const [newIdeaId, setNewIdeaId] = useState(null);
   const titlesRef = useRef(null);
 
   useEffect(() => {
-    if (typeof ideas[0] !== "undefined") {
-      focusNewTitle(ideas[0]?.id);
+    if (newIdeaId !== null) {
+      focusNewTitle(newIdeaId);
     }
-  }, [ideas]);
+  }, [newIdeaId]);
 
   function createIdea() {
     if (typeof ideas[0] !== "undefined") {
@@ -28,6 +29,7 @@ const App = () => {
     };
     setIdeas([newIdea, ...ideas]);
     console.log(newIdea);
+    setNewIdeaId(newIdea.id);
   }
 
   function updateIdea(titleValue, contentValue, targetId) {
