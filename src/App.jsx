@@ -57,15 +57,7 @@ const App = () => {
   }
 
   function deleteIdea(targetId) {
-    setIdeas((prevIdeas) => {
-      const ideasCopy = [...prevIdeas];
-      const index = prevIdeas.findIndex((idea) => idea.id === targetId);
-
-      ideasCopy.splice(index, 1);
-
-      console.log(ideasCopy);
-      return ideasCopy;
-    });
+    setIdeas(ideas.filter((idea) => idea.id !== targetId));
   }
 
   function getMap() {
