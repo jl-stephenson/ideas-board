@@ -73,6 +73,26 @@ const App = () => {
     node.focus();
   }
 
+  function sortAlphabetically() {
+    setIdeas((prevIdeas) => {
+      const sorted = [...prevIdeas].sort((a, b) => {
+        const aLower = a.title.toLowerCase();
+        const bLower = b.title.toLowerCase();
+
+        if (aLower < bLower) {
+          return -1;
+        }
+
+        if (aLower > bLower) {
+          return 1;
+        }
+
+        return 0;
+      });
+      return sorted;
+    });
+  }
+
   return (
     <>
       <Header createIdea={createIdea} />
