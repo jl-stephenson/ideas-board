@@ -95,7 +95,7 @@ const App = () => {
 
   return (
     <>
-      <Header createIdea={createIdea} />
+      <Header createIdea={createIdea} handleSort={sortAlphabetically} />
       <main className="wrapper">
         <div className="idea-grid">
           {ideas.length > 0 &&
