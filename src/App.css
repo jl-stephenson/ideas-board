@@ -89,8 +89,11 @@ input {
   background-color: var(--Primary-accent);
 }
 
-.header-grid {
-  display: grid;
+.header-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 @media (min-width: 460px) {
@@ -112,12 +115,20 @@ input {
 @media (min-width: 460px) {
   .create-button {
     max-width: 10rem;
-    justify-self: end;
   }
 }
 
 .create-button:hover {
   color: aquamarine;
+}
+
+.sort-label {
+  margin-right: 1rem;
+  color: white;
+}
+
+.sort-menu {
+margin-right: 2rem;
 }
 
 .wrapper {
