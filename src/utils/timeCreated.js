@@ -1,9 +1,11 @@
 export function timeCreated() {
-  const timestamp = new Date();
+  const date = new Date();
+  const timestamp = date.getTime();
+
   return {
     timestamp: timestamp,
-    date: timestamp.toLocaleDateString(),
-    time: timestamp.toLocaleTimeString([], {
+    date: date.toLocaleDateString(),
+    time: date.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
     }),

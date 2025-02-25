@@ -2,6 +2,7 @@ import "./App.css";
 import { createRoot } from "react-dom/client";
 import Header from "./components/Header/Header";
 import IdeaTile from "./components/IdeaTile/IdeaTile";
+import { sortIdeas } from "./utils/sortIdeas";
 import { timeCreated } from "./utils/timeCreated";
 import { useEffect, useRef, useState } from "react";
 
@@ -31,6 +32,7 @@ const App = () => {
       content: "",
       createdAt: `Created at: ${date} ${time}`,
       updatedAt: "",
+      updatedTimestamp: timestamp,
     };
     setIdeas([newIdea, ...ideas]);
     console.log(newIdea);
@@ -42,13 +44,14 @@ const App = () => {
       const ideasCopy = [...prevIdeas];
       const index = prevIdeas.findIndex((idea) => idea.id === targetId);
 
-      const { date, time } = timeCreated();
+      const { date, time, timestamp } = timeCreated();
 
       ideasCopy[index] = {
         ...ideasCopy[index],
         title: titleValue,
         content: contentValue,
         updatedAt: `Updated at ${date} ${time}`,
+        updatedTimestamp: timestamp,
       };
 
       console.log(ideasCopy);
@@ -73,29 +76,13 @@ const App = () => {
     node.focus();
   }
 
-  function sortAlphabetically() {
-    setIdeas((prevIdeas) => {
-      const sorted = [...prevIdeas].sort((a, b) => {
-        const aLower = a.title.toLowerCase();
-        const bLower = b.title.toLowerCase();
-
-        if (aLower < bLower) {
-          return -1;
-        }
-
-        if (aLower > bLower) {
-          return 1;
-        }
-
-        return 0;
-      });
-      return sorted;
-    });
+  function handleSort(sortType) {
+    setIdeas((prevIdeas) => sortIdeas(prevIdeas, sortType));
   }
 
   return (
     <>
-      <Header createIdea={createIdea} handleSort={sortAlphabetically} />
+      <Header createIdea={createIdea} handleSort={handleSort} />
       <main className="wrapper">
         <div className="idea-grid">
           {ideas.length > 0 &&

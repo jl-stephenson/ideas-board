@@ -15,7 +15,10 @@ export default function Header({ createIdea, handleSort }) {
             onChange={(e) => handleSort(e.target.value)}
           >
             <option value="">Select an option</option>
-            <option value="titleAsc">Title (A - Z)</option>
+            <option value="alphabeticalAsc">Title (A - Z)</option>
+            <option value="alphabeticalDesc">Title (Z - A)</option>
+            <option value="updatedAsc">Most Recently Updated</option>
+            <option value="updatedDesc">Least Recently Updated</option>
           </select>
         </div>
       </div>
