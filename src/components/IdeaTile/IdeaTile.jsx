@@ -1,4 +1,3 @@
-import { timeCreated } from "../../utils/timeCreated";
 import { useState } from "react";
 
 export default function IdeaTile({

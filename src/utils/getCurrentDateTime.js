@@ -1,4 +1,4 @@
-export function timeCreated() {
+export function getCurrentDateTime() {
   const date = new Date();
   const timestamp = date.getTime();
 

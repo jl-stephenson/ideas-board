@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import Header from "./components/Header/Header";
 import IdeaTile from "./components/IdeaTile/IdeaTile";
 import { sortIdeas } from "./utils/sortIdeas";
-import { timeCreated } from "./utils/timeCreated";
+import { getCurrentDateTime } from "./utils/getCurrentDateTime";
 import { useEffect, useRef, useState } from "react";
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
       }
     }
 
-    const { timestamp, date, time } = timeCreated();
+    const { timestamp, date, time } = getCurrentDateTime();
 
     const newIdea = {
       id: timestamp,
@@ -44,7 +44,7 @@ const App = () => {
       const ideasCopy = [...prevIdeas];
       const index = prevIdeas.findIndex((idea) => idea.id === targetId);
 
-      const { date, time, timestamp } = timeCreated();
+      const { date, time, timestamp } = getCurrentDateTime();
 
       ideasCopy[index] = {
         ...ideasCopy[index],
