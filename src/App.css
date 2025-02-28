@@ -4,10 +4,13 @@
 
 :root {
   /* colors */
-  --Primary-light-color: #f6ecc9;
-  --Primary-middle-tone: #f0f0f0;
-  --Primary-dark-tone: #3c3a33;
-  --Primary-accent: #4f5166;
+  --primary-light-color: #f6ecc9;
+  --primary-middle-tone: #f0f0f0;
+  --primary-dark-tone: #3c3a33;
+  --primary-accent: #4f5166;
+  --secondary-accent: #d85c49;
+  --action-positive: #cffafa; 
+  --action-negative: #c0351f;
 
   /* font-families */
   --main: "Mona Sans", serif;
@@ -39,8 +42,8 @@ dd {
 body {
   min-height: 100svh;
   font-family: var(--main);
-  background-color: var(--Primary-middle-tone);
-  color: var(--Primary-dark-tone);
+  background-color: var(--primary-middle-tone);
+  color: var(--primary-dark-tone);
 }
 
 img,
@@ -73,7 +76,7 @@ select {
   border-radius: 5px;
   padding: 0.25rem;
   font-family: inherit;
-  color: var(--Primary-dark-tone)
+  color: var(--primary-dark-tone)
 }
 
 .visually-hidden {
@@ -95,7 +98,7 @@ select {
 .header {
   width: 100%;
   min-height: 3rem;
-  background-color: var(--Primary-accent);
+  background-color: var(--primary-accent);
   padding-block: 1rem;
 }
 
@@ -106,7 +109,7 @@ select {
   gap: 1rem;
 }
 
-@media (min-width: 35rem) {
+@media (min-width: 48rem) {
   .header-flex {
     flex-direction: row;
     justify-content: space-between;
@@ -122,15 +125,17 @@ select {
   border-radius: 7px;
 }
 
-@media (min-width: 29rem) {
+@media (min-width: 30rem) {
   .create-button {
     max-width: 10rem;
   }
 }
 
-.create-button:hover {
-  color: aquamarine;
-  border-color: aquamarine;
+.create-button:hover,
+.create-button:focus {
+  color: var(--action-positive);
+  border-color: var(--action-positive);
+  outline: none;
 }
 
 .sort-label {
@@ -151,7 +156,7 @@ select {
   padding: 2rem;
 }
 
-@media (min-width: 29rem) {
+@media (min-width: 30rem) {
   .idea-grid {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     place-items: start legacy;
@@ -159,12 +164,12 @@ select {
 }
 
 .idea-tile {
-  background-color: var(--Primary-light-color);
+  background-color: var(--primary-light-color);
   padding: 1rem;
   border-radius: 5px;
   display: grid;
   gap: 1rem;
-  border: 0.5px solid var(--Primary-accent);
+  border: 0.5px solid var(--primary-accent);
 }
 
 .title-input {
@@ -180,7 +185,7 @@ select {
 
 .title-input:focus,
 .content-input:focus {
-  outline: 1px solid orangered;
+  outline: 1px solid var(--secondary-accent);
   border-radius: 5px;
 }
 
@@ -194,10 +199,16 @@ select {
 }
 
 .delete-button {
-  background-color: orangered;
+  background-color: var(--secondary-accent);
   color: white;
   padding: 0.5rem;
   border-radius: 5px;
+}
+
+.delete-button:hover,
+.delete-button:focus {
+  background-color: var(--action-negative);
+  outline: none;
 }
 
 /* -------------------- */
