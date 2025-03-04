@@ -7,25 +7,17 @@ export default function IdeaTile({
   deleteIdea,
   titleRef,
 }) {
-  const [editingTitleValue, setEditingTitleValue] = useState(idea.title);
-  const [editingContentValue, setEditingContentValue] = useState(idea.content);
+  const [title, setTitle] = useState(idea.title);
+  const [content, setContent] = useState(idea.content);
 
-  function onChange(e) {
-    if (e.target.tagName === "INPUT") {
-      setEditingTitleValue(e.target.value);
-    } else {
-      setEditingContentValue(e.target.value);
-    }
-  }
-
-  function onKeyDown(e) {
-    if (e.key === "Enter" || event.key === "Escape") {
-      e.target.blur();
+  function onKeyDown(event) {
+    if (event.key === "Enter" || event.key === "Escape") {
+      event.target.blur();
     }
   }
 
   function onBlur() {
-    updateIdea(editingTitleValue, editingContentValue, id);
+    updateIdea(title, content, id);
   }
 
   function handleDelete() {
@@ -38,9 +30,9 @@ export default function IdeaTile({
         type="text"
         aria-label="Idea title"
         className="title-input"
-        value={editingTitleValue}
+        value={title}
         placeholder="Title"
-        onChange={onChange}
+        onChange={(event) => setTitle(event.target.value)}
         onKeyDown={onKeyDown}
         onBlur={onBlur}
         ref={titleRef}
@@ -49,11 +41,11 @@ export default function IdeaTile({
         rows="5"
         aria-label="Idea content"
         className="content-input"
-        value={editingContentValue}
+        value={content}
         placeholder="Idea"
         maxLength="140"
         onBlur={onBlur}
-        onChange={onChange}
+        onChange={(event) => setContent(event.target.value)}
         onKeyDown={onKeyDown}
       ></textarea>
       <footer className="idea-footer">
