@@ -34,27 +34,26 @@ const App = () => {
       updatedTimestamp: timestamp,
     };
     setIdeas([newIdea, ...ideas]);
-    console.log(newIdea);
     setNewIdeaId(newIdea.id);
   }
 
   function updateIdea(titleValue, contentValue, targetId) {
     setIdeas((prevIdeas) => {
-      const ideasCopy = [...prevIdeas];
-      const index = prevIdeas.findIndex((idea) => idea.id === targetId);
-
       const { date, time, timestamp } = getCurrentDateTime();
 
-      ideasCopy[index] = {
-        ...ideasCopy[index],
-        title: titleValue,
-        content: contentValue,
-        updatedAt: `Updated at ${date} ${time}`,
-        updatedTimestamp: timestamp,
-      };
-
-      console.log(ideasCopy);
-      return ideasCopy;
+      const updatedIdeas = prevIdeas.map((idea) => {
+        if (idea.id === targetId) {
+          return {
+            ...idea,
+            title: titleValue,
+            content: contentValue,
+            updatedAt: `Updated at ${date} ${time}`,
+            updatedTimestamp: timestamp,
+          };
+        }
+        return idea;
+      });
+      return updatedIdeas;
     });
   }
 
