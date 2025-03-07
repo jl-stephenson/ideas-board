@@ -5,16 +5,29 @@ import { sortIdeas } from "./utils/sortIdeas";
 import { getCurrentDateTime } from "./utils/getCurrentDateTime";
 import { useEffect, useRef, useState } from "react";
 
-const App = () => {
-  const [ideas, setIdeas] = useState([]);
+export default function App() {
   const [newIdeaId, setNewIdeaId] = useState(null);
   const titlesRef = useRef(null);
+
+  const [ideas, setIdeas] = useState(() => {
+    const savedIdeas = localStorage.getItem("ideas");
+
+    if (savedIdeas) {
+      return JSON.parse(savedIdeas);
+    } else {
+      return [];
+    }
+  });
 
   useEffect(() => {
     if (newIdeaId !== null) {
       focusNewTitle(newIdeaId);
     }
   }, [newIdeaId]);
+
+  useEffect(() => {
+    localStorage.setItem("ideas", JSON.stringify(ideas));
+  }, [ideas]);
 
   function createIdea() {
     if (typeof ideas[0] !== "undefined") {
@@ -105,6 +118,4 @@ const App = () => {
       </main>
     </>
   );
-};
-
-export default App;
+}
