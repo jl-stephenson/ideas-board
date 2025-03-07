@@ -1,13 +1,16 @@
-import "./App.css";
+import { useEffect, useRef, useState } from "react";
 import Header from "./components/Header/Header";
 import IdeaTile from "./components/IdeaTile/IdeaTile";
+import NotificationBox from "./components/NotificationBox/NotificationBox";
 import { sortIdeas } from "./utils/sortIdeas";
 import { getCurrentDateTime } from "./utils/getCurrentDateTime";
-import { useEffect, useRef, useState } from "react";
+import useNotification from "./hooks/useNotification";
+import "./App.css";
 
 export default function App() {
   const [newIdeaId, setNewIdeaId] = useState(null);
   const titlesRef = useRef(null);
+  const { visible, showNotification } = useNotification();
 
   const [ideas, setIdeas] = useState(() => {
     const savedIdeas = localStorage.getItem("ideas");
@@ -66,6 +69,7 @@ export default function App() {
         }
         return idea;
       });
+      showNotification(2500);
       return updatedIdeas;
     });
   }
