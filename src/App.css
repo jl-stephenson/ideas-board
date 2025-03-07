@@ -189,6 +189,17 @@ select {
   border-radius: 5px;
 }
 
+.char-countdown {
+  color: var(--action-negative);
+  padding-inline: 0.5rem;
+  text-align: right;
+  visibility: hidden;
+}
+
+.char-countdown.active {
+  visibility: visible;
+}
+
 .idea-footer {
   display: flex;
   flex-direction: row;

@@ -9,6 +9,8 @@ export default function IdeaTile({
 }) {
   const [title, setTitle] = useState(idea.title);
   const [content, setContent] = useState(idea.content);
+  const [charCount, setCharCount] = useState(0);
+  const charLimit = 140;
 
   function onKeyDown(event) {
     if (event.key === "Enter" || event.key === "Escape") {
@@ -36,6 +38,7 @@ export default function IdeaTile({
         onKeyDown={onKeyDown}
         onBlur={onBlur}
         ref={titleRef}
+        maxLength="25"
       />
       <textarea
         rows="5"
@@ -43,11 +46,17 @@ export default function IdeaTile({
         className="content-input"
         value={content}
         placeholder="Idea"
-        maxLength="140"
+        maxLength={charLimit}
         onBlur={onBlur}
-        onChange={(event) => setContent(event.target.value)}
+        onChange={(event) => {
+          setContent(event.target.value);
+          setCharCount(event.target.value.length);
+        }}
         onKeyDown={onKeyDown}
       ></textarea>
+      <p className={`char-countdown ${charCount >= 120 && "active"}`}>
+        {charCount}/{charLimit}
+      </p>
       <footer className="idea-footer">
         <p className="timestamp">
           {idea.updatedAt === "" ? idea.createdAt : idea.updatedAt}

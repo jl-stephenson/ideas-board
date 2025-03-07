@@ -115,6 +115,7 @@ export default function App() {
               />
             ))}
         </div>
+        <NotificationBox visible={visible} />
       </main>
     </>
   );
