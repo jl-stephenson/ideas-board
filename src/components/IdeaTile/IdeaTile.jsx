@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 
-export default function IdeaTile({
-  idea,
-  id,
-  updateIdea,
-  deleteIdea,
-  titleRef,
-}) {
-  const [title, setTitle] = useState(idea.title);
-  const [content, setContent] = useState(idea.content);
+export default function IdeaTile({ idea, id, updateIdea, deleteIdea, isNew }) {
+  const { register, handleSubmit, setFocus } = useForm({
+    defaultValues: {
+      title: idea.title,
+      content: idea.content,
+    },
+  });
+
   const [charCount, setCharCount] = useState(0);
   const charLimit = 140;
+
+  useEffect(() => {
+    if (isNew) {
+      setFocus("title");
+    }
+  }, [isNew, setFocus]);
 
   function onKeyDown(event) {
     if (event.key === "Enter" || event.key === "Escape") {
@@ -18,40 +24,38 @@ export default function IdeaTile({
     }
   }
 
-  function onBlur() {
-    updateIdea(title, content, id);
-  }
-
   function handleDelete() {
     deleteIdea(id);
   }
 
   return (
-    <article className="idea-tile" id={id}>
+    <form className="idea-tile" id={id}>
       <input
+        {...register("title")}
         type="text"
         aria-label="Idea title"
         className="title-input"
-        value={title}
         placeholder="Title"
-        onChange={(event) => setTitle(event.target.value)}
         onKeyDown={onKeyDown}
-        onBlur={onBlur}
-        ref={titleRef}
+        onBlur={handleSubmit((data) => {
+          updateIdea(data.title, data.content, id);
+        })}
         maxLength="25"
       />
       <textarea
+        {...register("content", {
+          onChange: (event) => {
+            setCharCount(event.target.value.length);
+          },
+        })}
         rows="5"
         aria-label="Idea content"
         className="content-input"
-        value={content}
         placeholder="Idea"
         maxLength={charLimit}
-        onBlur={onBlur}
-        onChange={(event) => {
-          setContent(event.target.value);
-          setCharCount(event.target.value.length);
-        }}
+        onBlur={handleSubmit((data) => {
+          updateIdea(data.title, data.content, id);
+        })}
         onKeyDown={onKeyDown}
       ></textarea>
       <p className={`char-countdown ${charCount >= 120 && "active"}`}>
@@ -65,6 +69,6 @@ export default function IdeaTile({
           Delete
         </button>
       </footer>
-    </article>
+    </form>
   );
 }

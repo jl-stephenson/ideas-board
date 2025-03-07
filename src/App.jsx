@@ -8,8 +8,6 @@ import useNotification from "./hooks/useNotification";
 import "./App.css";
 
 export default function App() {
-  const [newIdeaId, setNewIdeaId] = useState(null);
-  const titlesRef = useRef(null);
   const { visible, showNotification } = useNotification();
 
   const [ideas, setIdeas] = useState(() => {
@@ -21,12 +19,6 @@ export default function App() {
       return [];
     }
   });
-
-  useEffect(() => {
-    if (newIdeaId !== null) {
-      focusNewTitle(newIdeaId);
-    }
-  }, [newIdeaId]);
 
   useEffect(() => {
     localStorage.setItem("ideas", JSON.stringify(ideas));
@@ -48,12 +40,12 @@ export default function App() {
       createdAt: `Created at: ${date} ${time}`,
       updatedAt: "",
       updatedTimestamp: timestamp,
+      isNew: true,
     };
     setIdeas([newIdea, ...ideas]);
-    setNewIdeaId(newIdea.id);
   }
 
-  function updateIdea(titleValue, contentValue, targetId) {
+  function updateIdea(title, content, targetId) {
     setIdeas((prevIdeas) => {
       const { date, time, timestamp } = getCurrentDateTime();
 
@@ -61,10 +53,11 @@ export default function App() {
         if (idea.id === targetId) {
           return {
             ...idea,
-            title: titleValue,
-            content: contentValue,
+            title,
+            content,
             updatedAt: `Updated at ${date} ${time}`,
             updatedTimestamp: timestamp,
+            isNew: false,
           };
         }
         return idea;
@@ -76,19 +69,6 @@ export default function App() {
 
   function deleteIdea(targetId) {
     setIdeas(ideas.filter((idea) => idea.id !== targetId));
-  }
-
-  function getMap() {
-    if (!titlesRef.current) {
-      titlesRef.current = new Map();
-    }
-    return titlesRef.current;
-  }
-
-  function focusNewTitle(id) {
-    const map = getMap();
-    const node = map.get(id);
-    node.focus();
   }
 
   function handleSort(sortType) {
@@ -108,14 +88,7 @@ export default function App() {
                 id={idea.id}
                 updateIdea={updateIdea}
                 deleteIdea={deleteIdea}
-                titleRef={(node) => {
-                  const map = getMap();
-                  if (node) {
-                    map.set(idea.id, node);
-                  } else {
-                    map.delete(idea.id);
-                  }
-                }}
+                isNew={idea.isNew}
               />
             ))}
         </div>
