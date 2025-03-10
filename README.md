@@ -1,6 +1,6 @@
 # Ideas Board
 
-A solution to ClearScore's Ideas Board challenge, a live demo is hosted on [Vercel](ideas-board-lilac.vercel.app).
+A solution to ClearScore's Ideas Board challenge, a live demo is hosted on [Vercel](ideas-board-sooty.vercel.app/).
 
 ## Useful Scripts
 
