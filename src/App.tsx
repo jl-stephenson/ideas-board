@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
-import IdeaTile from "./components/IdeaTile/IdeaTile";
-import NotificationBox from "./components/NotificationBox/NotificationBox";
+import IdeaTile from "./components/IdeaTile";
+import NotificationBox from "./components/NotificationBox";
 import { sortIdeas } from "./utils/sortIdeas";
 import { getCurrentDateTime } from "./utils/getCurrentDateTime";
 import useNotification from "./hooks/useNotification";
+import { Idea } from "./utils/types/types";
 import "./App.css";
 
 export default function App() {
   const { visible, showNotification } = useNotification();
 
-  const [ideas, setIdeas] = useState(() => {
+  const [ideas, setIdeas] = useState<Idea[]>(() => {
     const savedIdeas = localStorage.getItem("ideas");
 
     if (savedIdeas) {
@@ -24,39 +25,35 @@ export default function App() {
     localStorage.setItem("ideas", JSON.stringify(ideas));
   }, [ideas]);
 
-  function createIdea() {
-    if (typeof ideas[0] !== "undefined") {
-      if (ideas[0].title === "" && ideas[0].content === "") {
+  function createIdea(): void {
+      if (ideas[0]?.title === "" && ideas[0]?.content === "") {
         return;
       }
-    }
 
-    const { timestamp, date, time } = getCurrentDateTime();
+    const now = Date.now()
 
     const newIdea = {
-      id: timestamp,
+      id: now,
       title: "",
       content: "",
-      createdAt: `Created at: ${date} ${time}`,
-      updatedAt: "",
-      updatedTimestamp: timestamp,
+      createdTimestamp: now,
+      updatedTimestamp: undefined,
       isNew: true,
     };
     setIdeas([newIdea, ...ideas]);
   }
 
-  function updateIdea(title, content, targetId) {
-    setIdeas((prevIdeas) => {
-      const { date, time, timestamp } = getCurrentDateTime();
+  function updateIdea(title: string, content: string, id: number): void {
+    setIdeas(() => {
+      const now = Date.now();
 
-      const updatedIdeas = prevIdeas.map((idea) => {
-        if (idea.id === targetId) {
+      const updatedIdeas = ideas.map((idea: Idea) => {
+        if (idea.id === id) {
           return {
             ...idea,
             title,
             content,
-            updatedAt: `Updated at ${date} ${time}`,
-            updatedTimestamp: timestamp,
+            updatedTimestamp: now,
             isNew: false,
           };
         }
@@ -67,12 +64,12 @@ export default function App() {
     });
   }
 
-  function deleteIdea(targetId) {
-    setIdeas(ideas.filter((idea) => idea.id !== targetId));
+  function deleteIdea(id: number): void {
+    setIdeas(ideas.filter((idea) => idea.id !== id));
   }
 
-  function handleSort(sortType) {
-    setIdeas((prevIdeas) => sortIdeas(prevIdeas, sortType));
+  function handleSort(sortType: string): void {
+    setIdeas(() => sortIdeas(ideas, sortType));
   }
 
   return (
@@ -92,7 +89,7 @@ export default function App() {
               />
             ))}
         </div>
-        <NotificationBox visible={visible} />
+        {visible && <NotificationBox />}
       </main>
     </>
   );

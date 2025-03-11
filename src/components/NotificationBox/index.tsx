@@ -1,8 +1,4 @@
-export default function NotificationBox({ visible }) {
-  if (!visible) {
-    return <></>;
-  }
-
+export default function NotificationBox() {
   return (
     <div className="notification">
       <p>Idea Successfully Updated</p>

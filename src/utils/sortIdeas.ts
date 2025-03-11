@@ -1,9 +1,11 @@
-export function sortIdeas(ideas, sortType) {
+import { Idea } from "./types/types.ts";
+
+export function sortIdeas(ideas: Idea[], sortType: string) {
   const sorted = [...ideas];
 
   switch (sortType) {
     case "alphabeticalAsc": {
-      sorted.sort((a, b) => {
+      ideas.toSorted((a, b) => {
         const aLower = a.title.toLowerCase();
         const bLower = b.title.toLowerCase();
 
@@ -20,7 +22,7 @@ export function sortIdeas(ideas, sortType) {
       break;
     }
     case "alphabeticalDesc": {
-      sorted.sort((a, b) => {
+      ideas.sort((a, b) => {
         const aLower = a.title.toLowerCase();
         const bLower = b.title.toLowerCase();
 
@@ -37,11 +39,11 @@ export function sortIdeas(ideas, sortType) {
       break;
     }
     case "updatedAsc": {
-      sorted.sort((a, b) => b.updatedTimestamp - a.updatedTimestamp);
+      ideas.toSorted((a, b) => b.updatedTimestamp - a.updatedTimestamp);
       break;
     }
     case "updatedDesc": {
-      sorted.sort((a, b) => a.updatedTimestamp - b.updatedTimestamp);
+      ideas.toSorted((a, b) => a.updatedTimestamp - b.updatedTimestamp);
       break;
     }
     default:

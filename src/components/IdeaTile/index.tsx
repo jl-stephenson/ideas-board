@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 
-export default function IdeaTile({ idea, id, updateIdea, deleteIdea, isNew }) {
+export default function IdeaTile({ idea, updateIdea, deleteIdea, isNew }) {
   const { register, handleSubmit, setFocus } = useForm({
     defaultValues: {
       title: idea.title,
@@ -13,10 +13,18 @@ export default function IdeaTile({ idea, id, updateIdea, deleteIdea, isNew }) {
   const charLimit = 140;
 
   useEffect(() => {
-    if (isNew) {
+    if (idea.isNew) {
       setFocus("title");
     }
   }, [isNew, setFocus]);
+
+  function getTimestamp() {
+    if (idea.updatedTimestamp) {
+      return `Updated at ${new Date(idea.updatedTimestamp).toLocaleString()}`;
+    }
+
+    return `Created at ${new Date(idea.createdTimestamp).toLocaleString()}`;
+  }
 
   function onKeyDown(event) {
     if (event.key === "Enter" || event.key === "Escape") {
@@ -24,12 +32,8 @@ export default function IdeaTile({ idea, id, updateIdea, deleteIdea, isNew }) {
     }
   }
 
-  function handleDelete() {
-    deleteIdea(id);
-  }
-
   return (
-    <form className="idea-tile" id={id}>
+    <form className="idea-tile" id={idea.id}>
       <input
         {...register("title")}
         type="text"
@@ -38,9 +42,9 @@ export default function IdeaTile({ idea, id, updateIdea, deleteIdea, isNew }) {
         placeholder="Title"
         onKeyDown={onKeyDown}
         onBlur={handleSubmit((data) => {
-          updateIdea(data.title, data.content, id);
+          updateIdea(data.title, data.content, idea.id);
         })}
-        maxLength="25"
+        maxLength={25}
       />
       <textarea
         {...register("content", {
@@ -48,13 +52,13 @@ export default function IdeaTile({ idea, id, updateIdea, deleteIdea, isNew }) {
             setCharCount(event.target.value.length);
           },
         })}
-        rows="5"
+        rows={5}
         aria-label="Idea content"
         className="content-input"
         placeholder="Idea"
         maxLength={charLimit}
         onBlur={handleSubmit((data) => {
-          updateIdea(data.title, data.content, id);
+          updateIdea(data.title, data.content, idea.id);
         })}
         onKeyDown={onKeyDown}
       ></textarea>
@@ -62,10 +66,8 @@ export default function IdeaTile({ idea, id, updateIdea, deleteIdea, isNew }) {
         {charCount}/{charLimit}
       </p>
       <footer className="idea-footer">
-        <p className="timestamp">
-          {idea.updatedAt === "" ? idea.createdAt : idea.updatedAt}
-        </p>
-        <button className="delete-button" onClick={handleDelete}>
+        <p className="timestamp">{getTimestamp()}</p>
+        <button className="delete-button" onClick={() => deleteIdea(idea.id)}>
           Delete
         </button>
       </footer>
