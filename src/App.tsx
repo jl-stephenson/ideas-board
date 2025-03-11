@@ -37,7 +37,6 @@ export default function App() {
       content: "",
       createdTimestamp: now,
       updatedTimestamp: undefined,
-      isNew: true,
     };
     setIdeas([newIdea, ...ideas]);
   }
@@ -53,7 +52,6 @@ export default function App() {
             title,
             content,
             updatedTimestamp: now,
-            isNew: false,
           };
         }
         return idea;

@@ -4,5 +4,4 @@ export interface Idea {
     content: string,
     createdTimestamp: number,
     updatedTimestamp: number | undefined,
-    isNew: boolean
 }

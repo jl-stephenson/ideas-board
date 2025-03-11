@@ -24,10 +24,8 @@ export default function IdeaTile({
   const charLimit = 140;
 
   useEffect(() => {
-    if (idea.isNew) {
-      setFocus("title");
-    }
-  }, [idea.isNew, setFocus]);
+    setFocus("title");
+  }, [setFocus]);
 
   function getDateTime() {
     if (idea.updatedTimestamp) {
@@ -80,7 +78,11 @@ export default function IdeaTile({
       </p>
       <footer className="idea-footer">
         <p className="timestamp">{getDateTime()}</p>
-        <button type="button" className="delete-button" onClick={() => deleteIdea(idea.id)}>
+        <button
+          type="button"
+          className="delete-button"
+          onClick={() => deleteIdea(idea.id)}
+        >
           Delete
         </button>
       </footer>
