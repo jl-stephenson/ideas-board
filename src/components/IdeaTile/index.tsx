@@ -1,7 +1,18 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { Idea } from "../../utils/types/types";
 
-export default function IdeaTile({ idea, updateIdea, deleteIdea, isNew }) {
+interface IdeaTileProps {
+  idea: Idea;
+  updateIdea: (title: string, content: string, id: string) => void;
+  deleteIdea: (id: string) => void;
+}
+
+export default function IdeaTile({
+  idea,
+  updateIdea,
+  deleteIdea,
+}: IdeaTileProps) {
   const { register, handleSubmit, setFocus } = useForm({
     defaultValues: {
       title: idea.title,
@@ -16,7 +27,7 @@ export default function IdeaTile({ idea, updateIdea, deleteIdea, isNew }) {
     if (idea.isNew) {
       setFocus("title");
     }
-  }, [isNew, setFocus]);
+  }, [idea.isNew, setFocus]);
 
   function getTimestamp() {
     if (idea.updatedTimestamp) {
@@ -26,9 +37,11 @@ export default function IdeaTile({ idea, updateIdea, deleteIdea, isNew }) {
     return `Created at ${new Date(idea.createdTimestamp).toLocaleString()}`;
   }
 
-  function onKeyDown(event) {
+  function onKeyDown(
+    event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) {
     if (event.key === "Enter" || event.key === "Escape") {
-      event.target.blur();
+      event.currentTarget.blur();
     }
   }
 

@@ -1,8 +1,8 @@
 export interface Idea {
-    id: number,
+    id: string,
     title: string,
     content: string,
     createdTimestamp: number,
-    updatedTimestamp?: number,
+    updatedTimestamp: number | undefined,
     isNew: boolean
 }

@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import Header from "./components/Header/Header";
+import Header from "./components/Header";
 import IdeaTile from "./components/IdeaTile";
 import NotificationBox from "./components/NotificationBox";
 import { sortIdeas } from "./utils/sortIdeas";
-import { getCurrentDateTime } from "./utils/getCurrentDateTime";
 import useNotification from "./hooks/useNotification";
 import { Idea } from "./utils/types/types";
-import "./App.css";
+import "./App.css"
 
 export default function App() {
   const { visible, showNotification } = useNotification();
@@ -33,7 +32,7 @@ export default function App() {
     const now = Date.now()
 
     const newIdea = {
-      id: now,
+      id: String(now),
       title: "",
       content: "",
       createdTimestamp: now,
@@ -43,7 +42,7 @@ export default function App() {
     setIdeas([newIdea, ...ideas]);
   }
 
-  function updateIdea(title: string, content: string, id: number): void {
+  function updateIdea(title: string, content: string, id: string): void {
     setIdeas(() => {
       const now = Date.now();
 
@@ -64,7 +63,7 @@ export default function App() {
     });
   }
 
-  function deleteIdea(id: number): void {
+  function deleteIdea(id: string): void {
     setIdeas(ideas.filter((idea) => idea.id !== id));
   }
 
@@ -82,10 +81,8 @@ export default function App() {
               <IdeaTile
                 key={idea.id}
                 idea={idea}
-                id={idea.id}
                 updateIdea={updateIdea}
                 deleteIdea={deleteIdea}
-                isNew={idea.isNew}
               />
             ))}
         </div>
