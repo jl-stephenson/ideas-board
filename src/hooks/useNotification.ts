@@ -1,9 +1,14 @@
 import { useState } from "react";
 
-export default function useNotification() {
+interface UseNotificationReturn {
+  visible: boolean;
+  showNotification: (duration: number) => void;
+}
+
+export default function useNotification(): UseNotificationReturn {
   const [visible, setVisible] = useState(false);
 
-  function showNotification(duration) {
+  function showNotification(duration: number) {
     setVisible(true);
     setTimeout(() => {
       setVisible(false);

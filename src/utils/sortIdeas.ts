@@ -1,9 +1,15 @@
-export function sortIdeas(ideas, sortType) {
-  const sorted = [...ideas];
+import { Idea } from "./types/types.ts";
+
+export function sortIdeas(ideas: Idea[], sortType: string) {
+  if (ideas.length === 0) {
+    return ideas;
+  }
+
+  let sortedIdeas: Idea[] = ideas;
 
   switch (sortType) {
     case "alphabeticalAsc": {
-      sorted.sort((a, b) => {
+      sortedIdeas = ideas.toSorted((a, b) => {
         const aLower = a.title.toLowerCase();
         const bLower = b.title.toLowerCase();
 
@@ -20,7 +26,7 @@ export function sortIdeas(ideas, sortType) {
       break;
     }
     case "alphabeticalDesc": {
-      sorted.sort((a, b) => {
+      sortedIdeas = ideas.toSorted((a, b) => {
         const aLower = a.title.toLowerCase();
         const bLower = b.title.toLowerCase();
 
@@ -37,16 +43,24 @@ export function sortIdeas(ideas, sortType) {
       break;
     }
     case "updatedAsc": {
-      sorted.sort((a, b) => b.updatedTimestamp - a.updatedTimestamp);
+      sortedIdeas = ideas.toSorted((a, b) => {
+        let timeA = a.updatedTimestamp ?? 0;
+        let timeB = b.updatedTimestamp ?? 0;
+        return timeB - timeA;
+      });
       break;
     }
     case "updatedDesc": {
-      sorted.sort((a, b) => a.updatedTimestamp - b.updatedTimestamp);
+      sortedIdeas = ideas.toSorted((a, b) => {
+        let timeA = a.updatedTimestamp ?? 0;
+        let timeB = b.updatedTimestamp ?? 0;
+        return timeA - timeB;
+      });
       break;
     }
     default:
       break;
   }
 
-  return sorted;
+  return sortedIdeas;
 }
