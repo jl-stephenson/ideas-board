@@ -29,7 +29,7 @@ export default function IdeaTile({
     }
   }, [idea.isNew, setFocus]);
 
-  function getTimestamp() {
+  function getDateTime() {
     if (idea.updatedTimestamp) {
       return `Updated at ${new Date(idea.updatedTimestamp).toLocaleString()}`;
     }
@@ -61,8 +61,8 @@ export default function IdeaTile({
       />
       <textarea
         {...register("content", {
-          onChange: (event) => {
-            setCharCount(event.target.value.length);
+          onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+            setCharCount(event.currentTarget.value.length);
           },
         })}
         rows={5}
@@ -79,8 +79,8 @@ export default function IdeaTile({
         {charCount}/{charLimit}
       </p>
       <footer className="idea-footer">
-        <p className="timestamp">{getTimestamp()}</p>
-        <button className="delete-button" onClick={() => deleteIdea(idea.id)}>
+        <p className="timestamp">{getDateTime()}</p>
+        <button type="button" className="delete-button" onClick={() => deleteIdea(idea.id)}>
           Delete
         </button>
       </footer>
