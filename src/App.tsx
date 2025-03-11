@@ -29,7 +29,7 @@ export default function App() {
         return;
       }
 
-    const now = Date.now()
+    const now: number = Date.now()
 
     const newIdea = {
       id: String(now),
@@ -43,7 +43,7 @@ export default function App() {
 
   function updateIdea(title: string, content: string, id: string): void {
     setIdeas(() => {
-      const now = Date.now();
+      const now: number = Date.now();
 
       const updatedIdeas = ideas.map((idea: Idea) => {
         if (idea.id === id) {

@@ -20,7 +20,7 @@ export default function IdeaTile({
     },
   });
 
-  const [charCount, setCharCount] = useState(0);
+  const [charCount, setCharCount] = useState<number>(0);
   const charLimit = 140;
 
   useEffect(() => {
