@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { Idea } from "../../utils/types/types";
+import styles from "./styles.module.css"
 
 interface IdeaTileProps {
   idea: Idea;
@@ -44,12 +45,12 @@ export default function IdeaTile({
   }
 
   return (
-    <form className="idea-tile" id={idea.id}>
+    <form className={styles.ideaTile} id={idea.id}>
       <input
         {...register("title")}
         type="text"
         aria-label="Idea title"
-        className="title-input"
+        className={styles.titleInput}
         placeholder="Title"
         onKeyDown={onKeyDown}
         onBlur={handleSubmit((data) => {
@@ -65,7 +66,7 @@ export default function IdeaTile({
         })}
         rows={5}
         aria-label="Idea content"
-        className="content-input"
+        className={styles.contentInput}
         placeholder="Idea"
         maxLength={charLimit}
         onBlur={handleSubmit((data) => {
@@ -73,14 +74,14 @@ export default function IdeaTile({
         })}
         onKeyDown={onKeyDown}
       ></textarea>
-      <p className={`char-countdown ${charCount >= 120 && "active"}`}>
+      <p className={`${styles.charCountdown} ${charCount >= 120 && "active"}`}>
         {charCount}/{charLimit}
       </p>
-      <footer className="idea-footer">
+      <footer className={styles.ideaFooter}>
         <p className="timestamp">{getDateTime()}</p>
         <button
           type="button"
-          className="delete-button"
+          className={styles.deleteButton}
           onClick={() => deleteIdea(idea.id)}
         >
           Delete
