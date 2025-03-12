@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { sortIdeas } from "../../utils/sortIdeas";
-import { Idea } from "../../utils/types/types";
+import { sortIdeas } from "./sortIdeas";
+import { Idea } from "./types/types";
 
 
 describe("sort ideas", () => {
