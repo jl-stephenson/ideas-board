@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { Idea } from "../../utils/types/types";
-import styles from "./styles.module.css"
+import styles from "./styles.module.css";
 
 interface IdeaTileProps {
   idea: Idea;
@@ -74,7 +74,9 @@ export default function IdeaTile({
         })}
         onKeyDown={onKeyDown}
       ></textarea>
-      <p className={`${styles.charCountdown} ${charCount >= 120 && "active"}`}>
+      <p
+        className={`${styles.charCountdown} ${charCount >= 120 && styles.active}`}
+      >
         {charCount}/{charLimit}
       </p>
       <footer className={styles.ideaFooter}>
