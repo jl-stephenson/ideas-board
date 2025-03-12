@@ -1,0 +1,58 @@
+.ideaTile {
+    background-color: var(--primary-light-color);
+    padding: 1rem;
+    border-radius: 5px;
+    display: grid;
+    gap: 1rem;
+    border: 0.5px solid var(--primary-accent);
+  }
+  
+  .titleInput {
+    font-size: 1.5rem;
+  }
+  
+  .contentInput {
+    font-size: 1rem;
+    resize: none;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  
+  .titleInput:focus,
+  .contentInput:focus {
+    outline: 1px solid var(--secondary-accent);
+    border-radius: 5px;
+  }
+  
+  .charCountdown {
+    color: var(--action-negative);
+    padding-inline: 0.5rem;
+    text-align: right;
+    visibility: hidden;
+  }
+  
+  .charCountdown.active {
+    visibility: visible;
+  }
+  
+  .ideaFooter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-inline: 0.5rem;
+  }
+  
+  .deleteButton {
+    background-color: var(--secondary-accent);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+  
+  .deleteButton:hover,
+  .deleteButton:focus {
+    background-color: var(--action-negative);
+    outline: none;
+  }

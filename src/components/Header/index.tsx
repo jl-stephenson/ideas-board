@@ -1,3 +1,5 @@
+import styles from "./styles.module.css";
+
 interface HeaderProps {
   createIdea: () => void;
   handleSort: (sortType: string) => void;
@@ -5,17 +7,17 @@ interface HeaderProps {
 
 export default function Header({ createIdea, handleSort }: HeaderProps) {
   return (
-    <header className="header">
-      <div className="wrapper header-flex">
-        <button className="create-button" onClick={createIdea}>
+    <header className={styles.header}>
+      <div className={`wrapper ${styles.headerFlex}`}>
+        <button className={styles.createButton} onClick={createIdea}>
           Create New Idea
         </button>
         <div>
-          <label className="sort-label" htmlFor="sortSelect">
+          <label className={styles.sortLabel} htmlFor="sortSelect">
             Sort by:
           </label>
           <select
-            className="sort-menu"
+            className={styles.sortMenu}
             id="sortSelect"
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) => handleSort(event.currentTarget.value)}
           >
