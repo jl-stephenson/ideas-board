@@ -7,6 +7,15 @@ import { Idea } from "./utils/types/types";
 import "./App.css";
 import { usePersistedState } from "./hooks/usePersistedState";
 
+/**
+ * Main application component.
+ *
+ * Renders the header, ideas grid, and notification box. Manages a persistent list of ideas using
+ * a local storage hook and provides functionalities to create, update, delete, and sort these ideas.
+ * Notifications are triggered when an idea is updated.
+ *
+ * @returns The rendered JSX element for the application.
+ */
 export default function App() {
   const { visible, showNotification } = useNotification();
 
