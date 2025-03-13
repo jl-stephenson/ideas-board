@@ -25,10 +25,10 @@ export function setItem(key: string, value: unknown) {
 export function getItem(key: string) {
   try {
     if (!isLocalStorageAvailable()) {
-        console.warn("localStorage is not available");
-        return undefined;
-      }
-      
+      console.warn("localStorage is not available");
+      return undefined;
+    }
+
     const item = window.localStorage.getItem(key);
     return item ? JSON.parse(item) : undefined;
   } catch (error) {
