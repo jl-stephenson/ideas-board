@@ -1,35 +1,23 @@
-import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import IdeaTile from "./components/IdeaTile";
 import NotificationBox from "./components/NotificationBox";
 import { sortIdeas } from "./utils/sortIdeas";
 import useNotification from "./hooks/useNotification";
 import { Idea } from "./utils/types/types";
-import "./App.css"
+import "./App.css";
+import { usePersistedState } from "./hooks/usePersistedState";
 
 export default function App() {
   const { visible, showNotification } = useNotification();
 
-  const [ideas, setIdeas] = useState<Idea[]>(() => {
-    const savedIdeas = localStorage.getItem("ideas");
-
-    if (savedIdeas) {
-      return JSON.parse(savedIdeas);
-    } else {
-      return [];
-    }
-  });
-
-  useEffect(() => {
-    localStorage.setItem("ideas", JSON.stringify(ideas));
-  }, [ideas]);
+  const [ideas, setIdeas] = usePersistedState<Idea[]>("ideas", []);
 
   function createIdea(): void {
-      if (ideas[0]?.title === "" && ideas[0]?.content === "") {
-        return;
-      }
+    if (ideas[0]?.title === "" && ideas[0]?.content === "") {
+      return;
+    }
 
-    const now: number = Date.now()
+    const now: number = Date.now();
 
     const newIdea = {
       id: String(now),
