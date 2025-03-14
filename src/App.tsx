@@ -42,9 +42,9 @@ export default function App() {
         }
         return idea;
       });
-      showNotification(2500);
       return updatedIdeas;
     });
+    showNotification(2500);
   }
 
   function deleteIdea(id: string): void {
