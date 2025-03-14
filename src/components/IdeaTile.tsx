@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { Idea } from "../../utils/types/types";
+import { Idea } from "../utils/types/types";
 
 interface IdeaTileProps {
   idea: Idea;
@@ -45,7 +45,7 @@ export default function IdeaTile({
 
   return (
     <form
-      className="bg-primary-light border-primary-accent grid w-full gap-y-4 rounded-md border-2 p-4 text-primary-dark"
+      className="bg-primary-light border-primary-accent text-primary-dark grid w-full gap-y-4 rounded-md border-2 p-4"
       id={idea.id}
     >
       <input
