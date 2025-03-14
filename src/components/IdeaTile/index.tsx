@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { Idea } from "../../utils/types/types";
-import styles from "./styles.module.css";
 
 interface IdeaTileProps {
   idea: Idea;
@@ -45,12 +44,15 @@ export default function IdeaTile({
   }
 
   return (
-    <form className={styles.ideaTile} id={idea.id}>
+    <form
+      className="bg-primary-light border-primary-accent grid w-full gap-y-4 rounded-md border-2 p-4 text-primary-dark"
+      id={idea.id}
+    >
       <input
         {...register("title")}
         type="text"
         aria-label="Idea title"
-        className={styles.titleInput}
+        className="focus:outline-secondary-accent text-2xl focus:outline-1"
         placeholder="Title"
         onKeyDown={onKeyDown}
         onBlur={handleSubmit((data) => {
@@ -66,7 +68,7 @@ export default function IdeaTile({
         })}
         rows={5}
         aria-label="Idea content"
-        className={styles.contentInput}
+        className="focus:outline-secondary-accent max-w-full resize-none overflow-hidden focus:outline-1"
         placeholder="Idea"
         maxLength={charLimit}
         onBlur={handleSubmit((data) => {
@@ -75,15 +77,15 @@ export default function IdeaTile({
         onKeyDown={onKeyDown}
       ></textarea>
       <p
-        className={`${styles.charCountdown} ${charCount >= 120 && styles.active}`}
+        className={`text-action-negative px-2 text-right text-sm ${charCount >= 120 ? "visible" : "invisible"}`}
       >
         {charCount}/{charLimit}
       </p>
-      <footer className={styles.ideaFooter}>
-        <p className="timestamp">{getDateTime()}</p>
+      <footer className="flex w-full items-center justify-between px-2">
+        <p className="text-sm">{getDateTime()}</p>
         <button
           type="button"
-          className={styles.deleteButton}
+          className="bg-secondary-accent focus:bg-action-negative rounded-sm p-2 text-white"
           onClick={() => deleteIdea(idea.id)}
         >
           Delete
