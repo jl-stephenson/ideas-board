@@ -28,10 +28,12 @@ export function useIdeas() {
 
   const updateIdea = useCallback(
     (title: string, content: string, id: string): void => {
-      setIdeas((prevIdeas) => {
-        const now: number = Date.now();
-        const updatedIdeas = prevIdeas.map((idea: Idea) => {
-          if (idea.id === id) {
+      const now: number = Date.now();
+      let wasModified: boolean = false;
+      const updatedIdeas = ideas.map((idea: Idea) => {
+        if (idea.id === id) {
+          if (idea.title !== title || idea.content !== content) {
+            wasModified = true;
             return {
               ...idea,
               title,
@@ -39,11 +41,13 @@ export function useIdeas() {
               updatedTimestamp: now,
             };
           }
-          return idea;
-        });
-        return updatedIdeas;
+        }
+        return idea;
       });
-      showNotification(2500);
+      if (wasModified) {
+        setIdeas(updatedIdeas);
+        showNotification(2500);
+      }
     },
     [setIdeas, showNotification],
   );
