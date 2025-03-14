@@ -85,7 +85,7 @@ export default function IdeaTile({
         <p className="text-sm">{getDateTime()}</p>
         <button
           type="button"
-          className="bg-secondary-accent focus:bg-action-negative rounded-sm p-2 text-white"
+          className="bg-secondary-accent focus:bg-action-negative rounded-sm p-2 text-white focus:outline-0"
           onClick={() => deleteIdea(idea.id)}
         >
           Delete

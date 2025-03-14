@@ -5,7 +5,7 @@ interface UseNotificationReturn {
   showNotification: (duration: number) => void;
 }
 
-export default function useNotification(): UseNotificationReturn {
+export function useNotification(): UseNotificationReturn {
   const [visible, setVisible] = useState(false);
 
   function showNotification(duration: number) {
