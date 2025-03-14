@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
+@import "tailwindcss";
+
+/* -------------------- */
+/* Global variables     */
+/* -------------------- */
+
+@theme {
+  --color-primary-light: #f6ecc9;
+  --color-primary-middle: #f0f0f0;
+  --color-primary-dark: #3c3a33;
+  --color-primary-accent: #4f5166;
+  --color-secondary-accent: #d85c49;
+  --color-action-positive: #cffafa;
+  --color-action-negative: #c0351f;
+  --color-action-update: #738555;
+}
+
+@layer base {
+  body {
+    min-height: 100svh;
+    font-family: "Mona Sans", sans-serif;
+    background-color: var(--color-primary-middle);
+    color: var(--color-action-negative);
+  }
+
+  select {
+    background-color: white;
+    color: var(--color-primary-dark);
+  }
+}
+
+/* -------------------- */
+/* Components           */
+/* -------------------- */
+
+@utility tile-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 1rem;
+  place-items: center;
+  padding: 2rem;
+}
+
+/* @media (min-width: 30rem) {
+    .tile-grid {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      place-items: start;
+    }
+  } */
+
+@utility wrapper {
+  max-width: 112rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+

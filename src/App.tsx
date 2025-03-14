@@ -4,7 +4,6 @@ import NotificationBox from "./components/NotificationBox";
 import { sortIdeas } from "./utils/sortIdeas";
 import useNotification from "./hooks/useNotification";
 import { Idea } from "./utils/types/types";
-import "./App.css";
 import { usePersistedState } from "./hooks/usePersistedState";
 
 export default function App() {
@@ -59,7 +58,7 @@ export default function App() {
     <>
       <Header createIdea={createIdea} handleSort={handleSort} />
       <main className="wrapper">
-        <div className="idea-grid">
+        <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(300px,1fr))] place-items-center gap-4 p-8 sm:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] md:place-items-start">
           {ideas.length > 0 &&
             ideas.map((idea) => (
               <IdeaTile
