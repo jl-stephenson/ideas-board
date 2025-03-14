@@ -45,7 +45,7 @@ export default function IdeaTile({
 
   return (
     <form
-      className="bg-primary-light border-primary-accent text-primary-dark grid w-full gap-y-4 rounded-md border-2 p-4"
+      className="bg-primary-light border-primary-accent text-primary-dark grid w-full gap-y-4 rounded-md border-[1px] p-4"
       id={idea.id}
     >
       <input
