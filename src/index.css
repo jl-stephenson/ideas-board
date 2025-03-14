@@ -24,6 +24,10 @@
     color: var(--color-action-negative);
   }
 
+  button:hover {
+    cursor: pointer;
+  }
+
   select {
     background-color: white;
     color: var(--color-primary-dark);
