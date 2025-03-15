@@ -10,7 +10,7 @@ export function useIdeas() {
 
   const createIdea = useCallback((): void => {
     setIdeas((prevIdeas) => {
-      if (ideas[0]?.title === "" && ideas[0]?.content === "") {
+      if (prevIdeas[0]?.title === "" && prevIdeas[0]?.content === "") {
         return prevIdeas;
       }
 
