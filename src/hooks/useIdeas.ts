@@ -22,7 +22,7 @@ export function useIdeas() {
         createdTimestamp: now,
         updatedTimestamp: undefined,
       };
-      return [newIdea, ...ideas];
+      return [newIdea, ...prevIdeas];
     });
   }, [setIdeas]);
 
