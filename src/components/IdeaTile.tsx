@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Idea } from "../utils/types/types";
 
 interface IdeaTileProps {
@@ -8,20 +8,24 @@ interface IdeaTileProps {
   deleteIdea: (id: string) => void;
 }
 
+interface IdeaFormData {
+  title: string;
+  content: string;
+}
+
 export default function IdeaTile({
   idea,
   updateIdea,
   deleteIdea,
 }: IdeaTileProps) {
-  const { register, handleSubmit, setFocus } = useForm({
+  const { register, handleSubmit, setFocus, watch } = useForm({
     defaultValues: {
       title: idea.title,
       content: idea.content,
     },
   });
-
-  const [charCount, setCharCount] = useState<number>(0);
   const charLimit = 140;
+  const watchContent = watch("content");
 
   useEffect(() => {
     setFocus("title");
@@ -31,7 +35,6 @@ export default function IdeaTile({
     if (idea.updatedTimestamp) {
       return `Updated at ${new Date(idea.updatedTimestamp).toLocaleString()}`;
     }
-
     return `Created at ${new Date(idea.createdTimestamp).toLocaleString()}`;
   }
 
@@ -43,43 +46,39 @@ export default function IdeaTile({
     }
   }
 
+  function onSubmit(data: IdeaFormData) {
+    updateIdea(data.title, data.content, idea.id);
+  }
+
   return (
     <form
       className="bg-primary-light border-primary-accent text-primary-dark grid w-full gap-y-4 rounded-md border-[1px] p-4"
       id={idea.id}
     >
       <input
-        {...register("title")}
+        {...register("title", { maxLength: 25 })}
         type="text"
         aria-label="Idea title"
         className="focus:outline-secondary-accent text-2xl focus:outline-1"
         placeholder="Title"
         onKeyDown={onKeyDown}
-        onBlur={handleSubmit((data) => {
-          updateIdea(data.title, data.content, idea.id);
-        })}
-        maxLength={25}
+        onBlur={handleSubmit(onSubmit)}
       />
       <textarea
         {...register("content", {
-          onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-            setCharCount(event.currentTarget.value.length);
-          },
+          maxLength: 140,
         })}
         rows={5}
         aria-label="Idea content"
         className="focus:outline-secondary-accent max-w-full resize-none overflow-hidden focus:outline-1"
         placeholder="Idea"
-        maxLength={charLimit}
-        onBlur={handleSubmit((data) => {
-          updateIdea(data.title, data.content, idea.id);
-        })}
+        onBlur={handleSubmit(onSubmit)}
         onKeyDown={onKeyDown}
       ></textarea>
       <p
-        className={`text-action-negative px-2 text-right text-sm ${charCount >= 120 ? "visible" : "invisible"}`}
+        className={`text-action-negative px-2 text-right text-sm ${watchContent.length >= 120 ? "visible" : "invisible"}`}
       >
-        {charCount}/{charLimit}
+        {watchContent.length}/{charLimit}
       </p>
       <footer className="flex w-full items-center justify-between px-2">
         <p className="text-sm">{getDateTime()}</p>
