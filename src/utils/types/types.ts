@@ -5,3 +5,5 @@ export interface Idea {
   createdTimestamp: number;
   updatedTimestamp: number | undefined;
 }
+
+export type SortType = "alphabeticalAsc" | "alphabeticalDesc" | "updatedAsc" | "updatedDesc";

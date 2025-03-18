@@ -1,6 +1,8 @@
+import { SortType } from "../utils/types/types";
+
 interface HeaderProps {
   createIdea: () => void;
-  handleSort: (sortType: string) => void;
+  handleSort: (sortType: SortType) => void;
 }
 
 export default function Header({ createIdea, handleSort }: HeaderProps) {
@@ -21,7 +23,7 @@ export default function Header({ createIdea, handleSort }: HeaderProps) {
             className="mr-8 rounded-lg p-2"
             id="sortSelect"
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-              handleSort(event.currentTarget.value)
+              handleSort(event.currentTarget.value as SortType)
             }
           >
             <option value="alphabeticalAsc">Title (A - Z)</option>

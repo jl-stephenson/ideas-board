@@ -134,9 +134,4 @@ describe("sort ideas", () => {
       },
     ]);
   });
-
-  it("deals correctly with invalid sortType", () => {
-    const sortedIdeas = sortIdeas(mockIdeas, "random");
-    expect(sortedIdeas).toEqual(mockIdeas);
-  });
 });

@@ -1,6 +1,5 @@
-import { Idea } from "./types/types.ts";
+import { Idea, SortType } from "./types/types.ts";
 
-type SortType = "alphabeticalAsc" | "alphabeticalDesc" | "updatedAsc" | "updatedDesc";
 
 export function sortIdeas(ideas: Idea[], sortType: SortType): Idea[] {
   if (ideas.length === 0) {

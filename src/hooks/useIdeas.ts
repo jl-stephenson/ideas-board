@@ -1,7 +1,7 @@
 import { useNotification } from "./useNotification";
 import { usePersistedState } from "./usePersistedState";
 import { sortIdeas } from "../utils/sortIdeas";
-import { Idea } from "../utils/types/types";
+import { Idea, SortType } from "../utils/types/types";
 import { useCallback } from "react";
 
 export function useIdeas() {
@@ -60,7 +60,7 @@ export function useIdeas() {
   );
 
   const handleSort = useCallback(
-    (sortType: string): void => {
+    (sortType: SortType): void => {
       setIdeas((prevIdeas) => sortIdeas(prevIdeas, sortType));
     },
     [setIdeas],
