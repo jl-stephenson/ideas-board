@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 interface IdeaGridProps {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 export default function IdeaGrid({ children }: IdeaGridProps) {
