@@ -8,7 +8,7 @@ interface HeaderProps {
 export default function Header({ createIdea, handleSort }: HeaderProps) {
   return (
     <header className="bg-primary-accent min-h-12 w-full py-4">
-      <div className="wrapper flex flex-col items-center justify-between gap-4 md:flex-row">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 md:flex-row">
         <button
           className="hover:text-action-positive hover:border-action-positive mx-8 my-2 rounded-lg border-2 border-white p-4 text-white outline-0 md:max-w-40"
           onClick={createIdea}

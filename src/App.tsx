@@ -1,5 +1,4 @@
 import Header from "./components/Header";
-import IdeaGrid from "./components/IdeaGrid";
 import IdeaTile from "./components/IdeaTile";
 import NotificationBox from "./components/NotificationBox";
 import { useIdeas } from "./hooks/useIdeas";
@@ -11,8 +10,8 @@ export default function App() {
   return (
     <>
       <Header createIdea={createIdea} handleSort={handleSort} />
-      <main className="wrapper">
-        <IdeaGrid>
+      <main className="mx-auto max-w-7xl px-4">
+        <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(300px,1fr))] place-items-center gap-4 p-8 sm:grid-cols-[repeat(auto-fit,minmax(350px,1fr))] md:place-items-start">
           {ideas.length > 0 &&
             ideas.map((idea) => (
               <IdeaTile
@@ -22,7 +21,7 @@ export default function App() {
                 deleteIdea={deleteIdea}
               />
             ))}
-        </IdeaGrid>
+        </div>
         {visible && <NotificationBox />}
       </main>
     </>

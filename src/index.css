@@ -33,13 +33,3 @@
     color: var(--color-primary-dark);
   }
 }
-
-/* -------------------- */
-/* Components           */
-/* -------------------- */
-
-@utility wrapper {
-  max-width: 112rem;
-  margin-inline: auto;
-  padding-inline: 1rem;
-}

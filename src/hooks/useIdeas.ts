@@ -28,26 +28,21 @@ export function useIdeas() {
 
   const updateIdea = useCallback(
     (title: string, content: string, id: string): void => {
-      const now: number = Date.now();
-      let wasModified: boolean = false;
+      const now = Date.now();
+
       const updatedIdeas = ideas.map((idea: Idea) => {
         if (idea.id === id) {
-          if (idea.title !== title || idea.content !== content) {
-            wasModified = true;
-            return {
-              ...idea,
-              title,
-              content,
-              updatedTimestamp: now,
-            };
-          }
+          return {
+            ...idea,
+            title,
+            content,
+            updatedTimestamp: now,
+          };
         }
         return idea;
       });
-      if (wasModified) {
-        setIdeas(updatedIdeas);
-        showNotification(2500);
-      }
+      setIdeas(updatedIdeas);
+      showNotification(2500);
     },
     [setIdeas, showNotification],
   );
