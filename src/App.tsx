@@ -11,7 +11,7 @@ export default function App() {
   return (
     <>
       <Header createIdea={createIdea} handleSort={handleSort} />
-      <main className="wrapper">
+      <main className="mx-auto max-w-7xl px-4">
         <IdeaGrid>
           {ideas.length > 0 &&
             ideas.map((idea) => (
