@@ -47,7 +47,9 @@ export default function IdeaTile({
   }
 
   function onSubmit(data: IdeaFormData) {
-    updateIdea(data.title, data.content, idea.id);
+    if (data.title !== idea.title || data.content !== idea.content) {
+      updateIdea(data.title, data.content, idea.id);
+    }
   }
 
   return (
